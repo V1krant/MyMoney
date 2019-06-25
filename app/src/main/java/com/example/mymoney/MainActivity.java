@@ -90,70 +90,59 @@ public class MainActivity extends AppCompatActivity {
             showRequestPermissionsInfoAlertDialog();
         }
 
-        initViews();
-
         SharedPreferences pref = getApplicationContext().getSharedPreferences("Transactions", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putInt("limit", 50000);
         editor.apply();
-        //mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        mUserMobilePhone = mSharedPreferences.getString(PREF_USER_MOBILE_PHONE, "");
-        if (!TextUtils.isEmpty(mUserMobilePhone)) {
-            mNumberEditText.setText(mUserMobilePhone);
-        }
+        //mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
 
     }
 
-    private void initViews() {
-        //mNumberEditText = (EditText) findViewById(R.id.et_number);
-        //findViewById(R.id.btn_normal_sms).setOnClickListener(this);
-        findViewById(R.id.btn_conditional_sms).setOnClickListener(this);
-    }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_conditional_sms:
-                if (!hasValidPreConditions()) return;
-
+//    @Override
+//    public void onClick(View v) {
+//        switch (v.getId()) {
+//            case R.id.btn_conditional_sms:
+//                if (!hasValidPreConditions()) return;
 //
-//                SmsHelper.sendDebugSms(String.valueOf(mNumberEditText.getText()), SmsHelper.SMS_CONDITION + " This SMS is conditional, Hello toast");
-//                Toast.makeText(getApplicationContext(), R.string.toast_sending_sms, Toast.LENGTH_SHORT).show();
+////
+////                SmsHelper.sendDebugSms(String.valueOf(mNumberEditText.getText()), SmsHelper.SMS_CONDITION + " This SMS is conditional, Hello toast");
+////                Toast.makeText(getApplicationContext(), R.string.toast_sending_sms, Toast.LENGTH_SHORT).show();
+////                break;
+//                Cursor cursor = (Cursor) databaseHelper.getTransactions();
+//
+//                StringBuffer sb = new StringBuffer();
+//                Integer[] months = new Integer[13];
+//                for(int i=0;i<13;i++){
+//                    months[i] = 0;
+//                }
+//                //month at 5 and 6
+//                while(cursor.moveToNext()) {
+//                    sb.append(cursor.getString(1) + "---> " + cursor.getString(2) + "\n");
+//                    int month = Integer.parseInt(""+sb.charAt(5) + sb.charAt(6));
+//                    months[month] += Integer.parseInt(cursor.getString(2));
+//                    months[12] = Integer.parseInt(""+sb.charAt(0) + sb.charAt(1) + sb.charAt(2) + sb.charAt(3)) ;
+//                }
+//
+//                //Toast.makeText(getApplicationContext(), sb, Toast.LENGTH_SHORT).show();
+//                ArrayList<String> arrayList = new ArrayList<String>();
+//                for(int s:months) {
+//                    arrayList.add(String.valueOf(s));
+//                }
+//
+//                Toast.makeText(getApplicationContext(), Arrays.toString(months), Toast.LENGTH_SHORT).show();
+//
 //                break;
-                Cursor cursor = (Cursor) databaseHelper.getTransactions();
-
-                StringBuffer sb = new StringBuffer();
-                Integer[] months = new Integer[13];
-                for(int i=0;i<13;i++){
-                    months[i] = 0;
-                }
-                //month at 5 and 6
-                while(cursor.moveToNext()) {
-                    sb.append(cursor.getString(1) + "---> " + cursor.getString(2) + "\n");
-                    int month = Integer.parseInt(""+sb.charAt(5) + sb.charAt(6));
-                    months[month] += Integer.parseInt(cursor.getString(2));
-                    months[12] = Integer.parseInt(""+sb.charAt(0) + sb.charAt(1) + sb.charAt(2) + sb.charAt(3)) ;
-                }
-
-                //Toast.makeText(getApplicationContext(), sb, Toast.LENGTH_SHORT).show();
-                ArrayList<String> arrayList = new ArrayList<String>();
-                for(int s:months) {
-                    arrayList.add(String.valueOf(s));
-                }
-
-                Toast.makeText(getApplicationContext(), Arrays.toString(months), Toast.LENGTH_SHORT).show();
-
-                break;
-
-
-            case R.id.btn_normal_sms:
-                if (!hasValidPreConditions()) return;
-
-                //SmsHelper.sendDebugSms(String.valueOf(mNumberEditText.getText()), "The broadcast should not show a toast for this");
-                Toast.makeText(getApplicationContext(), "Nikal **** pehli fursat se", Toast.LENGTH_SHORT).show();
-                break;
-        }
-    }
+//
+//
+//            case R.id.btn_normal_sms:
+//                if (!hasValidPreConditions()) return;
+//
+//                //SmsHelper.sendDebugSms(String.valueOf(mNumberEditText.getText()), "The broadcast should not show a toast for this");
+//                Toast.makeText(getApplicationContext(), "Nikal **** pehli fursat se", Toast.LENGTH_SHORT).show();
+//                break;
+//        }
+//    }
 
     /**
      * Validates if the app has readSmsPermissions and the mobile phone is valid

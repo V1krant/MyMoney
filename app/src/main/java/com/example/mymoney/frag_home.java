@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -72,6 +73,8 @@ public class frag_home extends Fragment {
 
         CircularProgressBar circularProgressBar = (CircularProgressBar)view.findViewById(R.id.pbar);
         circularProgressBar.setProgress(80);
+
+        TextView spent = (TextView) view.findViewById((R.id.tvspend));
 
         return view;
     }
