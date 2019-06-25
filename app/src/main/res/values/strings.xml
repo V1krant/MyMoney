@@ -12,4 +12,5 @@
     <string name="welcome_to_dashboard">WELCOME TO DASHBOARD</string>
     <string name="budget_5000">Budget: 5000</string>
     <string name="spend_4000">Spend:4000</string>
+    <string name="action_ok">OK</string>
 </resources>
