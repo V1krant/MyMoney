@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".frag_home">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <com.mikhaellopez.circularprogressbar.CircularProgressBar
+        android:id="@+id/pbar"
+        android:layout_width="wrap_content"
+        android:layout_height="379dp"
+        android:layout_marginTop="88dp"
+        android:layout_marginBottom="8dp"
+        app:cpb_background_progressbar_color="#FFCDD2"
+        app:cpb_background_progressbar_width="5dp"
+        app:cpb_progressbar_color="#F44336"
+        app:cpb_progressbar_width="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tvbudget"
+        android:layout_width="161dp"
+        android:layout_height="36dp"
+        android:text="@string/budget_5000"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/pbar"
+        app:layout_constraintEnd_toEndOf="@+id/pbar"
+        app:layout_constraintStart_toStartOf="@+id/pbar"
+        app:layout_constraintTop_toTopOf="@+id/pbar"
+        app:layout_constraintVertical_bias="0.25" />
+
+    <TextView
+        android:id="@+id/tvspend"
+        android:layout_width="120dp"
+        android:layout_height="31dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/spend_4000"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/pbar"
+        app:layout_constraintEnd_toEndOf="@+id/pbar"
+        app:layout_constraintHorizontal_bias="0.196"
+        app:layout_constraintStart_toStartOf="@+id/pbar"
+        app:layout_constraintTop_toBottomOf="@+id/tvbudget"
+        app:layout_constraintVertical_bias="0.119" />
+
+    <TextView
+        android:id="@+id/tvspendtoday"
+        android:layout_width="147dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Spend Today: 200"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/pbar"
+        app:layout_constraintEnd_toEndOf="@+id/pbar"
+        app:layout_constraintHorizontal_bias="0.204"
+        app:layout_constraintStart_toEndOf="@+id/tvspend"
+        app:layout_constraintTop_toBottomOf="@+id/tvbudget"
+        app:layout_constraintVertical_bias="0.115" />
+
+    <TextView
+        android:id="@+id/tvstartdate"
+        android:layout_width="wrap_content"
+        android:layout_height="21dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="140dp"
+        android:text="Start Date: 20 June 2019"
+        app:layout_constraintBottom_toBottomOf="@+id/pbar"
+        app:layout_constraintEnd_toEndOf="@+id/pbar"
+        app:layout_constraintHorizontal_bias="0.147"
+        app:layout_constraintStart_toStartOf="@+id/pbar"
+        app:layout_constraintTop_toBottomOf="@+id/tvspend"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/tvenddate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="End Date: 30 June 2019"
+        app:layout_constraintBottom_toBottomOf="@+id/pbar"
+        app:layout_constraintEnd_toEndOf="@+id/pbar"
+        app:layout_constraintHorizontal_bias="0.857"
+        app:layout_constraintStart_toStartOf="@+id/pbar"
+        app:layout_constraintTop_toBottomOf="@+id/tvspendtoday"
+        app:layout_constraintVertical_bias="0.22" />
+
+    <TextView
+        android:id="@+id/tvdaysleft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="5 days left"
+        app:layout_constraintBottom_toBottomOf="@+id/pbar"
+        app:layout_constraintEnd_toEndOf="@+id/pbar"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="@+id/pbar"
+        app:layout_constraintTop_toBottomOf="@+id/tvbudget"
+        app:layout_constraintVertical_bias="0.621" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
