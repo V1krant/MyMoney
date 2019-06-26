@@ -43,12 +43,15 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
 //            if(!(smsSender.charAt(0) =='+') && !smsSender.matches("[0-9]+"))
             if(true)
             {
+                Log.d(TAG, "\n\n\nInside 1 if\n\n\n");
 
                 Pattern regex = Pattern.compile("(?:RS\\.?|INR)\\s*(\\d+(?:[.,]\\d+)*)|(\\d+(?:[.,]\\d+)*)\\s*(?:RS\\.?|INR)");
                 Matcher matcher = regex.matcher(smsBody);
                 if(matcher.find()) {
+                    Log.d(TAG, "\n\n\nInside 2nd if\n\n\n");
 
-                    amount = Integer.parseInt(matcher.group(1));
+                    //amount = Integer.parseInt(matcher.group(1));
+                    amount = Float.valueOf(matcher.group(1)).intValue();
 
                     if (smsBody.contains("CREDITED")) {
                         Log.d(TAG, "credited");

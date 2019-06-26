@@ -1,14 +1,21 @@
 package com.example.mymoney;
 
+import android.content.Context;
+import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 import com.mikhaellopez.circularprogressbar.CircularProgressBar;
+
+import java.util.ArrayList;
+import java.util.Calendar;
 
 
 /**
@@ -20,6 +27,7 @@ import com.mikhaellopez.circularprogressbar.CircularProgressBar;
  * create an instance of this fragment.
  */
 public class frag_home extends Fragment {
+    private static final String TAG = "FRAG_HOME";
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 //    private static final String ARG_PARAM1 = "param1";
@@ -66,7 +74,9 @@ public class frag_home extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
+        DatabaseHelper databaseHelper = new DatabaseHelper(getActivity());
         View view = inflater.inflate(R.layout.fragment_frag_home, container, false);
 //        tvhome = (TextView)view.findViewById(R.id.tvhome);
 //        tvhome.setText("welcome to home");
@@ -74,8 +84,35 @@ public class frag_home extends Fragment {
         CircularProgressBar circularProgressBar = (CircularProgressBar)view.findViewById(R.id.pbar);
         circularProgressBar.setProgress(80);
 
-        TextView spent = (TextView) view.findViewById((R.id.tvspend));
+        Cursor cursor = (Cursor) databaseHelper.getTransactions();
+        Calendar cal = Calendar.getInstance();
+        int currentMonth = cal.get(Calendar.MONTH);
 
+        StringBuffer sb = new StringBuffer();
+        Integer[] months = new Integer[13];
+        for(int i=0;i<13;i++){
+            months[i] = 0;
+        }
+        //month at 5 and 6
+        while(cursor.moveToNext()) {
+            sb.append(cursor.getString(1) + "---> " + cursor.getString(2) + "\n");
+            int month = Integer.parseInt(""+sb.charAt(5) + sb.charAt(6));
+            months[month] += Integer.parseInt(cursor.getString(2));
+            months[12] = Integer.parseInt(""+sb.charAt(0) + sb.charAt(1) + sb.charAt(2) + sb.charAt(3)) ;
+        }
+
+        Log.d(TAG,"Current Month   --- "+currentMonth);
+
+        Log.d(TAG,sb.toString());
+
+        ArrayList<String> arrayList = new ArrayList<String>();
+        for(int s:months) {
+            arrayList.add(String.valueOf(s));
+        }
+
+        TextView spent = (TextView) view.findViewById((R.id.tvspend));
+        int totalSpent = months[currentMonth];
+        spent.setText("Spent :"+Integer.toString(totalSpent));
         return view;
     }
 

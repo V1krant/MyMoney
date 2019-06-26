@@ -1,13 +1,12 @@
 package com.example.mymoney;
 
 import android.Manifest;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.os.Bundle;
-
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -15,19 +14,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
+import androidx.support.v4.app.Fragment;
+import android.app.FragmentManager;
 
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -44,6 +37,12 @@ public class MainActivity extends AppCompatActivity {
     final FragmentManager fm = getSupportFragmentManager();
     Fragment active = fragment1;
     Fragment currentFragment = null;
+
+    android.app.FragmentManager FManager = getFragmentManager();
+    Fragment detail = new frag_home();
+    FragmentTransaction ft = FManager.beginTransaction();
+    ft.add(R.id.myfraghome, detail);
+    ft.commit();
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
