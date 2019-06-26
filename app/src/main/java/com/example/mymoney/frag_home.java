@@ -61,15 +61,13 @@ public class frag_home extends Fragment {
 //        return fragment;
 //    }
 //
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-//        }
-//    }
-//    TextView tvhome;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.d(TAG, "OnCreate chal gaya");
+
+    }
+    TextView tvhome;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
