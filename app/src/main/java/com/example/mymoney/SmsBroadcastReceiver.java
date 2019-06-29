@@ -7,6 +7,7 @@ import android.provider.Telephony;
 import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,9 +23,14 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        myDB = new DatabaseHelper(context);
+        frag_home obj = new frag_home();
 
-        if (intent.getAction().equals(Telephony.Sms.Intents.SMS_RECEIVED_ACTION))
+        myDB = new DatabaseHelper(context);
+        //TextView tv1 = (TextView) TextView.getView().findViewById(R.id.tvspend);
+
+
+        //if (intent.getAction().equals(Telephony.Sms.Intents.SMS_RECEIVED_ACTION))
+        if(true)
         {
             String smsSender = "";
             String smsBody = "";
@@ -75,5 +81,9 @@ public class SmsBroadcastReceiver extends BroadcastReceiver {
 
             }
         }
+
+        obj.updatetv();
+        //FragmentManager manager = getActivity().getSupportFragmentManager();
+        //SomeFragment fragment = new SomeFragment();
     }
 }

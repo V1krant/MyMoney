@@ -1,28 +1,33 @@
 package com.example.mymoney;
 
 import android.Manifest;
-import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.os.Bundle;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
 import android.util.Log;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+
 public class MainActivity extends AppCompatActivity {
+    int count = 0;
     private static final String TAG = "MainActivity";
     private static final String PREF_USER_MOBILE_PHONE = "pref_user_mobile_phone";
     private static final int SMS_PERMISSION_CODE = 0;
@@ -71,17 +76,72 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+//        setContentView(R.layout.fragment_frag_home);
+//        setContentView(R.layout.fragment_frag_notifications);
+//        setContentView(R.layout.fragment_frag_dash);
         BottomNavigationView navView = findViewById(R.id.nav_view);
         mTextMessage = findViewById(R.id.message);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        fm.beginTransaction().add(R.id.main_container, fragment3, "3").hide(fragment3).commit();
-        fm.beginTransaction().add(R.id.main_container, fragment2, "2").hide(fragment2).commit();
-        fm.beginTransaction().add(R.id.main_container,fragment1, "1").commit();
+//        fm.beginTransaction().add(R.id.main_container, fragment3, "3").hide(fragment3).commit();
+//        fm.beginTransaction().add(R.id.main_container, fragment2, "2").hide(fragment2).commit();
+//        fm.beginTransaction().add(R.id.main_container,fragment1, "1").commit();
 
         if (!hasReadSmsPermission()) {
             showRequestPermissionsInfoAlertDialog();
         }
+
+        setContentView(R.layout.fragment_frag_home);
+
+        final TextView tv = (TextView) findViewById(R.id.tvspend);
+
+        Thread t = new Thread(){
+            @Override
+            public void run(){
+                while(!isInterrupted()){
+
+                    try {
+                        Thread.sleep(10000);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                count++;
+                                Calendar cal = Calendar.getInstance();
+                                int currentMonth = cal.get(Calendar.MONTH);
+                                Cursor cursor = (Cursor) databaseHelper.getTransactions();
+
+                                StringBuffer sb = new StringBuffer();
+                                Integer[] months = new Integer[13];
+                                for(int i=0;i<13;i++){
+                                    months[i] = 0;
+                                }
+                                //month at 5 and 6
+                                while(cursor.moveToNext()) {
+                                    sb.append(cursor.getString(1) + "---> " + cursor.getString(2) + "\n");
+                                    int month = Integer.parseInt(""+sb.charAt(5) + sb.charAt(6));
+                                    months[month] += Integer.parseInt(cursor.getString(2));
+                                    months[12] = Integer.parseInt(""+sb.charAt(0) + sb.charAt(1) + sb.charAt(2) + sb.charAt(3)) ;
+                                }
+
+                                //Toast.makeText(getApplicationContext(), sb, Toast.LENGTH_SHORT).show();
+                                Log.d(TAG, Arrays.toString(months));
+                                Log.d(TAG, ""+currentMonth);
+                                ArrayList<String> arrayList = new ArrayList<String>();
+                                for(int s:months) {
+                                    arrayList.add(String.valueOf(s));
+                                }
+
+                                tv.setText("Spent: "+months[currentMonth+1]);
+                            }
+                        });
+                    }
+                    catch (InterruptedException e){
+                        e.printStackTrace();
+                    }
+                }
+            }
+        };
+        t.start();
 
         SharedPreferences pref = getApplicationContext().getSharedPreferences("Transactions", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
@@ -124,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
 //                }
 //
 //                Toast.makeText(getApplicationContext(), Arrays.toString(months), Toast.LENGTH_SHORT).show();
-//
+
 //                break;
 //
 //
